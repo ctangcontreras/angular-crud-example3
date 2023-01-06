@@ -1,0 +1,119 @@
+<body  *ngIf="busacar">
+  <div style="background: url('assets/fondoSegui.jpg'); background-size: 100% 100%; height: 100%; padding-top: 7%;">
+    <mat-card style=" margin-left: 25%;margin-right: 25%; border-radius: 20px; border-color: rgb(169, 170, 172);">
+      <div class="row">
+        <div class="col-2" style="margin: 2%;">
+          <img src="assets/logoEmpresa.jpeg" style="width: 50px; height: 55px;">
+        </div>
+        <div class="col">
+          <mat-card style="background-color: rgba(237, 237, 237, 0.39); margin-top: 10px;">
+            <mat-label>N° Expediente: {{resultBusqueda.correlativo}}</mat-label>
+          </mat-card>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px">
+        <div class="col-2">
+        </div>
+        <div class="col-3" align="end">
+          <mat-label>Fecha de Emisión</mat-label>
+        </div>
+        <div class="col">
+          <mat-label>{{resultBusqueda.fregistro | date:'dd/MM/yyyy'}}</mat-label>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px">
+        <div class="col-2">
+        </div>
+        <div class="col-3" align="end">
+          <mat-label>Asunto:</mat-label>
+        </div>
+        <div class="col">
+          <mat-label>{{resultBusqueda.asunto}}</mat-label>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px">
+        <div class="col-2">
+        </div>
+        <div class="col-3" align="end">
+          <mat-label>Solicitante/Emisor:</mat-label>
+        </div>
+        <div class="col">
+          <mat-label>{{resultBusqueda.nombres}}</mat-label>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px">
+        <div class="col-2">
+        </div>
+        <div class="col-3" align="end">
+          <mat-label>Estado:</mat-label>
+        </div>
+        <div class="col">
+          <mat-label>{{resultBusqueda.estado}}</mat-label>
+        </div>
+      </div>
+      <hr>
+      <div mat-dialog-content [align]="'center'">
+        <mat-card style="background-color: rgb(250, 250, 250);">
+          <table style="border-collapse: collapse; width: 100%;">
+            <thead style="text-align: center; border-color: #000; border: solid 1px;">
+                <tr>
+                  <th scope="col" rowspan="3" style="border-color: #000; border: solid 1px;">Exp: {{resultBusqueda.correlativo}}</th>
+                  <th scope="col" style="border-color: #000; border: solid 1px;">Área</th>
+                  <th scope="col" style="border-color: #000; border: solid 1px;">Fecha</th>
+                </tr>
+                <tr>
+                  <th colspan="2" scope="col" style="border-color: #000; border: solid 1px;">Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor = "let det of resultadoDetalle; let j = index;">
+              <tr class="plomo">
+                <td align="center" rowspan="2" style="border-color: #000; border: solid 1px;"># {{j+1}}</td>
+                <td align="center" style="border-color: #000; border: solid 1px;">{{det.area}}</td>
+                <td align="center" style="border-color: #000; border: solid 1px;">{{det.fecha | date: 'dd/MM/yyyy'}}</td>
+              </tr>
+              <tr class="celeste">
+                <td align="center" colspan="2" style="border-color: #000; border: solid 1px;">{{det.descripcion}}</td>
+              </tr>
+              </ng-container>
+            </tbody>
+          </table>
+
+        </mat-card>
+      </div>
+<br>
+      <div mat-dialog-actions style="padding-bottom: 15px;; height: 12PX;" align="center">
+        <button mat-stroked-button cdkFocusInitial color="accent" style="width: 150px;" (click)="nuevaConsulta()">Nueva Consulta</button>
+    </div><br>
+    </mat-card>
+  </div>
+</body>
+
+
+<body *ngIf="!busacar">
+  <div style="background: url('assets/fondoSegui.jpg'); background-size: 100% 100%; height: 100%; padding-top: 17%;">
+    <mat-card style=" margin-left: 30%;margin-right: 30%; border-radius: 20px; border-color: rgb(169, 170, 172); padding-left: 35px;">
+      <div>
+        <h3 style="font-weight: 600;">Buscar Expediente </h3>
+      </div>
+      <div class="row">
+
+        <div class="col">
+          <form [formGroup]="formGroupParent">
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <mat-label>Ingrese su Nùmero Expediente</mat-label>
+            <input matInput autocomplete="off" placeholder="Ejem: 0000-0000" formControlName="numExpediente" maxlength="9">
+          </mat-form-field>
+        </form>
+        </div>
+        <div class="col-4" align="center" style="margin-top: 11px;">
+          <p-button  label="BUSCAR" icon="pi pi-search" iconPos="right" [loading]="loading[1]" (click)="buscar(1)" ></p-button>
+          <!--button mat-stroked-button cdkFocusInitial color="accent" style="width: 150px; margin-top: 13px;" (click)="buscar()"></!--button-->
+        </div>
+      </div>
+
+
+    </mat-card>
+  </div>
+</body>
+<p-toast></p-toast>

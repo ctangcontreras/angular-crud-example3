@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+
+  <br/>
+  <br/>
+  <form [formGroup]="formGroupParent" style="padding: 30px;">
+    <div class="row gap-3 "  >
+
+      <div class="col-3">
+        <div class="text-label-left">Nombres</div>
+          <mat-form-field  appearance="outline" style="width: 100%;">
+            <input matInput type="text" formControlName="nombre" (paste)="false" (keypress)="keyPress2($event)"
+                 maxlength="100">
+          </mat-form-field>
+      </div>
+
+
+      <div class="col-3"  >
+        <div class="text-label-left">Fecha Nacimiento</div>
+        <mat-form-field color="accent" appearance="outline" style="width: 100%;">
+          <input matInput [matDatepicker]="picker1" readonly="true" placeholder="DD/MM/AAAA"  formControlName="fechaNacimiento">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+
+      <div class="col-3 d-flex align-items-center">
+        <button mat-raised-button color="primary" (click)="clickRegistrar()">Registrar</button>
+      </div>
+
+
+
+    </div>
+
+    <div class="row gap-3"  >
+
+      <div class="col-3">
+        <div class="text-label-left">Apellido Paterno</div>
+          <mat-form-field  appearance="outline" style="width: 100%;">
+            <input matInput type="text" formControlName="apellidoPaterno" (paste)="false" (keypress)="keyPress2($event)"
+                 maxlength="100">
+          </mat-form-field>
+      </div>
+
+      <div class="col-3">
+        <div class="text-label-left">Direccion</div>
+          <mat-form-field  appearance="outline" style="width: 100%;">
+            <input matInput type="text" formControlName="direccion" (paste)="false"
+                 maxlength="100">
+          </mat-form-field>
+      </div>
+
+
+      <div class="col-3 d-flex align-items-center">
+        <button mat-raised-button color="primary" (click)="clickActualizar()" >Actualizar</button>
+      </div>
+
+
+    </div>
+
+
+    <div class="row gap-3"  >
+
+      <div class="col-3">
+        <div class="text-label-left">Apellido Materno</div>
+          <mat-form-field  appearance="outline" style="width: 100%;">
+            <input matInput type="text" formControlName="apellidoMaterno" (paste)="false" (keypress)="keyPress2($event)"
+                 maxlength="100">
+          </mat-form-field>
+      </div>
+
+      <div class="col-3">
+        <div class="text-label-left">Correo</div>
+          <mat-form-field  appearance="outline" style="width: 100%;">
+            <input matInput type="text" formControlName="correo" (paste)="false"
+                 maxlength="100">
+          </mat-form-field>
+      </div>
+
+      <div class="col-3 d-flex align-items-center">
+        <button mat-raised-button color="primary" (click)="clickEliminar()" >Eliminar</button>
+      </div>
+
+
+
+
+    </div>
+
+    <div class="row gap-3"  >
+
+
+      <mat-radio-group formControlName="sexo">
+        <mat-radio-button value="1">Masculino</mat-radio-button>
+        <mat-radio-button value="2">Femenino</mat-radio-button>
+      </mat-radio-group>
+
+
+    </div>
+
+    </form>
+
+
+    <div class="mat-elevation-z8" >
+      <table mat-table [dataSource]="dataSource" style="width: 100%;" >
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="nombres">
+          <th mat-header-cell *matHeaderCellDef> Nombres </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="apeMat">
+          <th mat-header-cell *matHeaderCellDef> Apellido Paterno </th>
+          <td mat-cell *matCellDef="let element"> {{element.apellidoPaterno}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="apePat">
+          <th mat-header-cell *matHeaderCellDef> Apellido Materno </th>
+          <td mat-cell *matCellDef="let element"> {{element.apellidoMaterno}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaNac">
+          <th mat-header-cell *matHeaderCellDef> Fecha Nacimiento </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.fechaNacimiento | date: 'dd/MM/YYYY' }}
+
+         </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sexo">
+          <th mat-header-cell *matHeaderCellDef> Sexo </th>
+          <td mat-cell *matCellDef="let element">
+
+
+             <span *ngIf="element.sexo===1"> Masculino</span>
+             <span *ngIf="element.sexo!==1"> Femenino</span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="direccion">
+          <th mat-header-cell *matHeaderCellDef> Dirección </th>
+          <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="correo">
+          <th mat-header-cell *matHeaderCellDef> Correo </th>
+          <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+        </ng-container>
+
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"  ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="cursor: pointer;" (click)="clickGetId(row)"></tr>
+      </table>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+<p-toast></p-toast>
+</html>
+

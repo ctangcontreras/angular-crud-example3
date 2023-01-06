@@ -1,0 +1,94 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 15%;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  //background-image : url('/assets/navs.png');
+  height: 10vh;
+  background-size: cover;
+  background-position: center;
+  /*opacity: 0.9;*/
+}
+//alinear menu cabecera
+.alinearMenu-spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+    background: #004a9f;
+    color: white;
+}
+mat-list-item{
+  color: white;
+}
+mat-sidenav {
+   // background-image : url('/assets/navs1.jpg');
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    /*opacity: 0.9;*/
+}
+/*
+.content {
+    height: calc(100vh - 98px);
+    border-radius: 10px;
+    margin: 16px;
+    margin-left: 32px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 2rem;
+    color: lightgray;
+}
+
+mat-sidenav-container {
+    height: calc(100vh - 65px);
+}*/
+::ng-deep .mat-menu-content{
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  //background-color: #585b57;
+}
+
+
+.mat-list-item  {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.mat-list-item:hover  {
+  border-color: currentColor;
+}
+
+
+
+mat-sidenav-content{
+  height: 100vh;
+  position: relative;
+  //background-color: #47484a;
+
+}
+#footer {
+  position: sticky;
+  left:0px;
+  bottom:0px;
+  top: 100vh;
+  height:50px;
+  width:100%;
+  //background:rgb(71 72 74);
+  z-index: 1;
+
+}

@@ -1,0 +1,52 @@
+<div>
+  <button mat-button [mat-dialog-close]="true" style="float: right;">
+    <mat-icon>close</mat-icon>
+  </button>
+  <h1 style=" font-family: 'Times New Roman', Georgia, Serif; font-weight: 800;font-style: italic">DERIVAR DOCUMENTO
+  </h1>
+</div>
+<div mat-dialog-content [align]="'center'">
+  <mat-card style="background-color: rgb(250, 250, 250);">
+    <form [formGroup]="formGroupParent">
+    <div class="row">
+      <div class="col-4" align="start" style="margin-top: 15px; margin-left: 5px;">
+        <b style="  font-family: 'Times New Roman', Georgia, Serif;">Seleccione Área:</b>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Área</mat-label>
+          <mat-select disableRipple formControlName="area">
+            <mat-option *ngFor="let elemet of listComboAreas" [value]="elemet.id">{{elemet.area}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4" align="start" style="margin-top: 15px; margin-left: 5px;">
+        <b style="  font-family: 'Times New Roman', Georgia, Serif;">Adjuntar Expediente:</b>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline" class="styelInput" style="width: 100%;">
+          <mat-label>Seleccione Expediente</mat-label>
+          <ngx-mat-file-input [accept]="'.pdf'" formControlName="docTdr" (change)="cargarpdf(formGroupParent.get('docTdr').value, 1)">
+            <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+          </ngx-mat-file-input>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-0" align="end">
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Comentario</mat-label>
+          <textarea matInput placeholder="Ingrese Comentario" formControlName="comentario"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+  </mat-card>
+</div>
+<div mat-dialog-actions style="padding-bottom: 15px;; height: 12PX;" [align]="'center'">
+    <button mat-stroked-button  (click)="derivarExp()" cdkFocusInitial color="accent">DERIVAR</button>
+</div>

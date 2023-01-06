@@ -1,0 +1,115 @@
+<p-card class="dashboard-card">
+  <mat-card style="margin-top: -20px;">
+    <div align="center">
+   <b> Filtros de busqueda</b><hr>
+  </div>
+  <form [formGroup]="formGroupParent">
+  <div class="row">
+
+    <div class="col-2">
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Tipo Expediente</mat-label>
+      <mat-select disableRipple formControlName="tipoExpe">
+        <mat-option value="1">Interno</mat-option>
+        <mat-option value="2">Externo</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+    <div class="col-2">
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Número Expedeinte</mat-label>
+        <input matInput placeholder="" formControlName="numExpediente"  maxlength="9" (keypress)="validarExpe($event)">
+      </mat-form-field>
+  </div>
+    <div class="col-2">
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>DNI</mat-label>
+        <input matInput placeholder="" formControlName="dni" maxlength="8" (keypress)="keyPress($event)">
+      </mat-form-field>
+    </div>
+    <div class="col-3">
+      <mat-form-field color="accent" appearance="fill" style="width: 100%;">
+        <mat-label>Fecha Inicio</mat-label>
+        <input matInput [matDatepicker]="picker" readonly="true" placeholder="DD/MM/AAAA"  formControlName="fechaIni" [max]="minDate" (dateChange)="resFecha($event.value)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-3">
+      <mat-form-field color="accent" appearance="fill" style="width: 100%;">
+        <mat-label>Fecha Fin</mat-label>
+        <input matInput [matDatepicker]="picker1" readonly="true" placeholder="DD/MM/AAAA"  formControlName="fechaFin"  [max]="maxDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+  </div>
+</form>
+<div class="row">
+  <div class="col-10" align="center" >
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button mat-stroked-button color="accent" (click)="listarExpedient()">BUSCAR</button>&nbsp;&nbsp;&nbsp;
+    <button mat-stroked-button color="primary" (click)="limpiar()">LIMPIAR</button>
+  </div>
+  <div class="col-2" *ngIf="ELEMENT_DATA.length > 0">
+    <a style="cursor: pointer; text-decoration-line: underline; color: #321fdb; font-size: 13px; "  (click)="generarReportePDF()"><img src="../assets/pdf.png"
+      alt="" style="width: 28px; height: 28px;">Exportar PDF</a>
+  </div>
+</div>
+</mat-card><br>
+  <div class="mat-elevation-z7" *ngIf="ELEMENT_DATA.length > 0">
+    <table mat-table [dataSource]="ELEMENT_DATA" style="width: 100%;">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="correlativo">
+        <th class="textAlign" mat-header-cell *matHeaderCellDef> No. Expediente </th>
+        <td mat-cell *matCellDef="let element"> {{element.correlativo}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="contenidoExp">
+        <th class="textAlign" mat-header-cell *matHeaderCellDef> Tipo Documento </th>
+        <td mat-cell *matCellDef="let element"> {{element.contenidoExp}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="asuntoAnexo">
+        <th class="textAlign" mat-header-cell *matHeaderCellDef> Asunto </th>
+        <td mat-cell *matCellDef="let element"> {{element.asuntoAnexo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="fechaRegistro">
+        <th class="textAlign" mat-header-cell *matHeaderCellDef> Fecha Registro </th>
+        <td mat-cell *matCellDef="let element"> {{element.fechaRegistro | date:'dd/MM/yyyy'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+        <th class="textAlign" mat-header-cell *matHeaderCellDef>Estado Expediente</th>
+        <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Accion">
+        <th class="textAlign" mat-header-cell *matHeaderCellDef style="min-width: 100px !important;"> Accion </th>
+        <td mat-cell *matCellDef="let element"> <button mat-icon-button>
+            <mat-icon (click)="openDialogDetalle('300ms', '150ms',element)"  matTooltip="Ver">visibility</mat-icon>
+          </button> <button mat-icon-button>
+            <mat-icon matTooltip="Derivar" (click)="openDialog('300ms', '150ms',element)">fast_forward</mat-icon>
+          </button> <button mat-icon-button>
+            <mat-icon (click)="descargarTDR(element)"  matTooltip="Descargar Expediente">get_app</mat-icon>
+          </button> <button mat-icon-button>
+            <mat-icon (click)="descargarAnexo(element)"  matTooltip="Descargar Anexo">get_app</mat-icon>
+          </button></td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users" showFirstLastButtons>
+    </mat-paginator>
+  </div>
+
+</p-card>
+<p-toast></p-toast>
+<!--ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-clip-rotate-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner-->

@@ -1,0 +1,10 @@
+
+<b mat-dialog-title align="center">Aviso</b>
+<div mat-dialog-content>
+  <p>¿Estas seguro que deseas continuar?</p>
+
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="onNoClick()" color="primary">Cancelar</button>
+  <button mat-stroked-button [mat-dialog-close]="data.guardar" cdkFocusInitial color="accent">Guardar</button>
+</div>

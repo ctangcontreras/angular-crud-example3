@@ -1,0 +1,191 @@
+<p-card class="dashboard-card">
+  <div style="margin-top: -18px;">
+  <b>CAPACITACIÓN – MUNICIPALIDAD DISTRITAL DE LLUMPA</b>
+</div><hr>
+  <br>
+  <form [formGroup]="formGroupParent">
+  <div class="row">
+    <div class="col-sm-2" align="end" style="margin-top: 17px;">
+        <b>DNI: </b>
+    </div>
+    <div class="col-sm-6" align="start" >
+      <mat-form-field appearance="outline" style="width: 70%; font-size: 14px;">
+        <mat-label>DNI</mat-label>
+        <input matInput placeholder="INGRESE DNI" formControlName="dni" (keypress)="keyPress($event)" maxlength="8" (keydown.enter)="buscarPersona($event);">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-3" align="end">
+      <mat-form-field appearance="outline" style="width: 50%; text-align: center;"  *ngIf="idRegistro !=  ''">
+        <mat-label>Numeración</mat-label>
+        <input matInput placeholder="INGRESE NUMERACION" value="12-2022 " [readonly]="true" formControlName="correlativo">
+      </mat-form-field>
+    </div>
+  </div>
+  <div style="margin-bottom: 10px;"  *ngIf="idRegistro == ''"></div>
+  <div class="row" style="margin-top: -24px;">
+    <div class="col-sm-2" align="end" style="margin-top: 17px;">
+      <b>APELLIDOS:</b>
+    </div>
+    <div class="col-sm-6" align="start" >
+      <mat-form-field appearance="outline" style="width: 70%; font-size: 14px;">
+        <mat-label>Apellidos</mat-label>
+        <input matInput placeholder="INGRESE APELLIDOS" formControlName="apellidos" (keypress)="onlyLetras($event)" maxlength="50">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row"  style="margin-top: -15px;">
+    <div class="col-sm-2" align="end" style="margin-top: 17px;">
+     <b>NOMBRES:</b>
+    </div>
+    <div class="col-sm-6" align="start" >
+      <mat-form-field appearance="outline" style="width: 70%; font-size: 14px;">
+        <mat-label>Nombres</mat-label>
+        <input matInput placeholder="INGRESE NOMBRES" formControlName="nombres" (keypress)="onlyLetras($event)" maxlength="50">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row"  style="margin-top: -15px;">
+    <div class="col-sm-2" align="end" style="margin-top: 17px;">
+    </div>
+    <div class="col-sm-5" align="start" >
+    </div>
+    <div class="col-sm-2" align="end" style="margin-top: -20px;" >
+      <b>INSTITUCIÓN</b>
+    </div>
+  </div>
+
+  <div class="row"  style="margin-top: -15px;">
+    <div class="col-sm-2" align="end" style="margin-top: 17px;">
+      <b>TEMA:</b>
+    </div>
+    <div class="col-sm-5" align="start" >
+      <mat-form-field appearance="outline" style="width: 85%; font-size: 14px;">
+        <mat-label>Tema de capacitación</mat-label>
+        <mat-select disableRipple formControlName="tema">
+          <mat-option *ngFor="let elemet of resulListComboTema" [value]="elemet.id">{{elemet.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-2" align="end"  style="margin-top: 15px;">
+      <b>RUC:</b>
+    </div>
+    <div class="col-sm-3" align="start" >
+      <mat-form-field appearance="outline" style="width: 100%; font-size: 12px;">
+        <mat-label>RUC</mat-label>
+        <input matInput placeholder="INGRESE RUC" formControlName="ruc" (keypress)="keyPress($event)" maxlength="11" (keydown.enter)="buscarInstitucion($event);">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row"  style="margin-top: -30px;">
+    <div class="col-sm-2" align="end" >
+    </div>
+    <div class="col-sm-5" align="start" >
+    </div>
+    <div class="col-sm-2" align="end" style="margin-top: 15px;">
+      <b>Razón Social:</b>
+    </div>
+    <div class="col-sm-3" align="start"  >
+      <mat-form-field appearance="outline" style="width: 100%; font-size: 12px;">
+        <mat-label>NOMBRE</mat-label>
+        <input matInput placeholder="INGRESE NOMBRE" formControlName="razonSocial" (keypress)="onlyLetras($event)">
+      </mat-form-field>
+    </div>
+  </div>
+  <div style="margin-left: 4%;"><b> DURACIÓN DE CAPACITACIÓN</b></div>
+  <div class="row"style="margin-top: 17px;">
+    <div class="col-sm-1" align="end" style="margin-top: 17px;">
+      <b>Salida:</b>
+    </div>
+    <div class="col-sm-3" align="start" >
+      <mat-form-field color="accent" appearance="outline" style="width: 100%; font-size: 14px;">
+        <mat-label>Fecha Salida</mat-label>
+        <input matInput [matDatepicker]="picker1" readonly="true" placeholder="DD/MM/AAAA" formControlName="fechaSalida" [min]="minDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1 ></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-2">
+      <mat-form-field appearance="outline" style="width: 100%; font-size: 14px;">
+        <mat-label>Hora</mat-label>
+        <input matInput type="time" value=`${data.mission.loadDate.getHours()}:${data.mission.loadDate.getMinutes()}` formControlName="horaSalida" >
+      </mat-form-field>
+
+      <!--mat-form-field appearance="outline" style="width: 100%; font-size: 14px;">
+        <mat-label>Hora</mat-label>
+        <input matInput placeholder="INGRESE HORA" formControlName="horaSalida">
+      </!--mat-form-field-->
+    </div>
+    <div class="col-sm-3">
+      <mat-form-field appearance="outline" style="width: 100%; font-size: 14px;">
+        <mat-label>Lugar de salida</mat-label>
+        <input matInput placeholder="INGRESE LUGAR DE SALIDA" formControlName="lugarSalida" maxlength="50" >
+      </mat-form-field>
+    </div>
+    <div class="col-sm-3">
+      <mat-form-field appearance="outline" class="styelInput"style="width: 100%; font-size: 14px;">
+        <mat-label>Adjuntar PDF</mat-label>
+        <ngx-mat-file-input [accept]="'.pdf'" formControlName="adjPDF" (change)="cargarpdf(formGroupParent.get('adjPDF').value)">
+          <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+        </ngx-mat-file-input>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" style="margin-top: -15px;font-size: 14px;">
+    <div class="col-sm-1" align="end" style="margin-top: 17px;">
+      <b>Retorno</b>
+    </div>
+    <div class="col-sm-3" align="start" >
+      <mat-form-field color="accent" appearance="outline" style="width: 100%; font-size: 14px;">
+        <mat-label>Fecha Retorno</mat-label>
+        <input matInput [matDatepicker]="picker" readonly="true" placeholder="DD/MM/AAAA"formControlName=fechaRetorno [min]="minDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker ></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-2">
+      <mat-form-field appearance="outline" style="width: 100%; font-size: 14px;">
+        <mat-label>Hora</mat-label>
+        <input matInput type="time" value=`${data.mission.loadDate.getHours()}:${data.mission.loadDate.getMinutes()}` formControlName="horaRetorno" >
+      </mat-form-field>
+      <!--mat-form-field appearance="outline" style="width: 100%; font-size: 14px;">
+        <mat-label>Hora</mat-label>
+        <input matInput placeholder="INGRESE HORA" formControlName="horaRetorno">
+      </!--mat-form-field-->
+    </div>
+    <div class="col-sm-3">
+      <mat-form-field appearance="outline" style="width: 100%; font-size: 14px;">
+        <mat-label>Lugar de Destino</mat-label>
+        <input matInput placeholder="INGRESE LUGAR DE DESTINO" formControlName="lugarDestino" maxlength="50">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-3">
+      <mat-form-field appearance="outline" style="width: 100%; font-size: 14px;">
+        <mat-label>Descripción</mat-label>
+        <input matInput placeholder="INGRESE DESCRIPCIÓN" formControlName="descripcion" maxlength="50">
+      </mat-form-field>
+    </div>
+  </div>
+  <div style="margin-left: 4%;"><b> FUNDAMENTACIÓN:</b></div>
+  <div class="row">
+    <div class="col-sm-12" align="center" >
+      <mat-form-field appearance="outline" style="width: 92%;">
+        <mat-label>FUNDAMENTACIÓN</mat-label>
+        <textarea matInput placeholder="Ingrese Fundamentación"formControlName="fundamentacion" (keypress)="onlyLetras($event)"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+  <div class="row">
+    <div class="col-sm" align="center" >
+      <button mat-stroked-button color="accent"  style="width: 30%;" (click)="registrarCapacitacion()">Registrar</button>
+    </div>
+    <div class="col-sm" align="center" >
+      <button mat-stroked-button color="accent" style="width: 30%;" (click)="limpiarFormulario()">Limpiar</button>
+    </div>
+    <div class="col-sm" align="center" >
+      <button mat-stroked-button color="accent" style="width: 30%;">Salir</button>
+    </div>
+  </div>
+</p-card>
+<p-toast></p-toast>

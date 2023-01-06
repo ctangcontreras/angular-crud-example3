@@ -1,0 +1,150 @@
+<p-card align="center" color="#1d3572" header="MESA DE PARTES VIRTUAL INTERNA" class="dashboard-card">
+  <mat-stepper linear #stepper>
+    <mat-step [editable]="isEditable"  [stepControl]="nitem" *ngFor="let nitem of formGroupParent.get('datosUsuario')['controls']; let nindex = index;">
+      <ng-container [formGroup]="nitem">
+        <ng-template matStepLabel>Datos del usuario</ng-template>
+        <br>
+        <div class="row">
+          <div class="col-sm" align="end">
+            <mat-form-field appearance="outline" class="styelInput">
+              <mat-label>DNI</mat-label>
+              <input matInput placeholder="Ingrese su DNI" [formControlName]="'dni'" (keydown.enter)="buscarPersona($event);"
+              (keypress)="keyPress($event)" maxlength="8">
+            </mat-form-field>
+          </div>
+          <div class="col-sm" align="start">
+            <mat-form-field appearance="outline" class="styelInput">
+              <mat-label>RUC</mat-label>
+              <input matInput placeholder="RUC" [formControlName]="'ruc'"(keypress)="keyPress($event)"
+              maxlength="11">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm" align="end">
+            <mat-form-field appearance="outline" class="styelInput">
+              <mat-label>Apellidos</mat-label>
+              <input matInput placeholder="APELLIDOS" [formControlName]="'apellidos'" (keypress)="onlyLetras($event)" maxlength="50">
+            </mat-form-field>
+          </div>
+          <div class="col-sm" align="start">
+            <mat-form-field appearance="outline" class="styelInput">
+              <mat-label>Nombres</mat-label>
+              <input matInput placeholder="NOMBRES" [formControlName]="'nombres'" (keypress)="onlyLetras($event)" maxlength="50">
+            </mat-form-field>
+          </div>
+        </div>
+        <div>
+          <button mat-stroked-button (click)="SiguienteVentana(stepper)" color="accent">Siguiente</button>
+        </div>
+      </ng-container>
+    </mat-step>
+    <mat-step [editable]="isEditable"  [stepControl]="nitem" *ngFor="let nitem of formGroupParent.get('agregarAnexo')['controls']; let nindex = index;">
+
+        <ng-template matStepLabel>Documentos</ng-template>
+        <br>
+        <ng-container [formGroup]="nitem">
+        <div class="row">
+          <div class="col-sm" align="end">
+            <mat-form-field appearance="outline" class="styelInput">
+              <mat-label>Tipo Documento</mat-label>
+              <mat-select disableRipple [formControlName]="'tipoDoc'">
+                <mat-option value="Informe">Informe</mat-option>
+                <mat-option value="Conformidad">Conformidad</mat-option>
+                <mat-option value="Solicitud">Solicitud</mat-option>
+                <mat-option value="Requerimiento">Requerimiento</mat-option>
+                <mat-option value="Otros">Otros</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-sm" align="start">
+            <mat-form-field appearance="outline" class="styelInput">
+              <mat-label>Número de documento</mat-label>
+              <input matInput placeholder="Ingrese documento" [formControlName]="'numDocu'" maxlength="9">
+            </mat-form-field>
+          </div>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" class="styelInput">
+            <mat-label>Asunto</mat-label>
+            <textarea matInput placeholder="Ingrese Asunto" [formControlName]="'asunto'" maxlength="50"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <div class="col-sm" align="end">
+
+            <mat-form-field appearance="outline" class="styelInput">
+              <mat-label>Número de folios</mat-label>
+              <input matInput placeholder="Número de folios" [formControlName]="'numFolios'" (keypress)="keyPress($event)" maxlength="5">
+            </mat-form-field>
+          </div>
+          <div class="col-sm" align="start">
+            <mat-form-field appearance="outline" class="styelInput">
+            <mat-label>Documento(Formato PDF)</mat-label>
+            <ngx-mat-file-input [accept]="'.pdf'" [formControlName]="'docPdf'" (change)="cargarpdf(nitem.get('docPdf').value, 1)">
+              <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+            </ngx-mat-file-input>
+          </mat-form-field>
+          </div>
+        </div>
+        <div align="end" style="margin-right: 14.8%;">
+        </div>
+          <div class="row">
+            <ng-container>
+              <div class="col-sm" align="end">
+                <mat-form-field appearance="outline" class="styelInput">
+                  <mat-label>Descripcion Anexo </mat-label>
+                  <input matInput placeholder="Descripcion Anexo" autocomplete="off" [formControlName]="'descAnexo'" maxlength="50">
+                </mat-form-field>
+              </div>
+              <div class="col-sm" align="start">
+                <mat-form-field appearance="outline" class="styelInput">
+                  <mat-label>Anexo </mat-label>
+                  <ngx-mat-file-input [accept]="'.pdf'" [formControlName]="'docPdfAnexo'" (change)="cargarpdf(nitem.get('docPdfAnexo').value, 2)">
+                    <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+                  </ngx-mat-file-input>
+                </mat-form-field>
+                &nbsp;
+              </div>
+            </ng-container>
+          </div>
+        <div>
+        </div>
+        <button mat-stroked-button  (click)="regresarRegistroPersona(stepper)">Atras</button>&nbsp;
+        <button mat-stroked-button color="accent" (click)="openDialog(stepper)">Confirmar</button>
+      </ng-container>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Confirmado ✓✓</ng-template>
+      <div>
+        <img src="assets/confirm.jpg" style="width: 100px; height: 100px;">
+      </div><br>
+      <div>
+        <div class="row">
+          <div class="col-sm" align="end">
+            <b>N° Expediente: </b>
+          </div>
+          <div class="col-sm" align="start">
+            <mat-label>{{numExpediente}}</mat-label>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-sm" align="end">
+            <b>Fecha: </b>
+          </div>
+          <div class="col-sm" align="start">
+            <mat-label>{{date | date:'dd/MM/yyyy'}}</mat-label>
+          </div>
+        </div><br>
+      </div>
+      <div>
+        <p>"Recuerde guardar el número correlativo para hacer el seguimiento"</p>
+      </div><br>
+      <div>
+        <!--button mat-stroked-button matStepperPrevious color="primary">Salir</!--button-->&nbsp;
+        <button mat-stroked-button color="accent" (click)="stepper.reset()">Generar Nuevo</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</p-card>
+<p-toast></p-toast>

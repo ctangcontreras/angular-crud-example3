@@ -1,0 +1,162 @@
+<div>
+  <button mat-button [mat-dialog-close]="true" style="float: right;">
+    <mat-icon>close</mat-icon>
+  </button>
+  <h1 style=" font-family: 'Times New Roman', Georgia, Serif; font-weight: 800;font-style: italic">ACTUALIZAR EMPLEADO
+  </h1>
+</div>
+<div mat-dialog-content [align]="'center'">
+  <mat-card style="background-color: rgba(250, 250, 250, 0.311);">
+    <form [formGroup]="formGroupParent">
+      <div class="row">
+        <div class="col-sm" align="end">
+          <mat-form-field appearance="outline" class="styelInput">
+            <mat-label>DNI</mat-label>
+            <input matInput placeholder="INGRESE SU DNI" (keypress)="keyPress($event)" maxlength="8"
+             formControlName="dni">
+          </mat-form-field>
+        </div>
+        <div class="col-sm">
+          <div class="col-sm" align="start">
+            <mat-form-field appearance="outline" class="styelInput" >
+              <mat-label>N° RUC</mat-label>
+              <input matInput placeholder="INGRESE SU RUC"  formControlName="ruc"(keypress)="keyPress($event)" maxlength="11">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm" align="start">
+        <mat-form-field color="accent" appearance="outline" class="styelInput">
+          <mat-label>Fecha Nacimiento</mat-label>
+          <input matInput [matDatepicker]="picker3" readonly="true" placeholder="DD/MM/AAAA"
+          formControlName="fechaNaci">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3 ></mat-datepicker>
+        </mat-form-field>
+        </div>
+        <div class="col-sm">
+          <mat-form-field appearance="outline" class="styelInput" >
+            <mat-label>Usuario</mat-label>
+            <input matInput placeholder="INGRESE SU USUARIO"  formControlName="usuario"  maxlength="49">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm" align="end">
+          <mat-form-field appearance="outline" class="styelInput">
+            <mat-label>Apellidos</mat-label>
+            <input matInput placeholder="APELLIDOS"  formControlName="apellidos" (keypress)="onlyLetras($event)" maxlength="50">
+          </mat-form-field>
+        </div>
+        <div class="col-sm" align="start">
+          <mat-form-field appearance="outline" class="styelInput">
+            <mat-label>Nombres</mat-label>
+            <input matInput placeholder="INGRESE NOMBRES" formControlName="nombres" (keypress)="onlyLetras($event)" maxlength="50">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm" align="end">
+          <mat-form-field appearance="outline" class="styelInput">
+            <mat-label>Número celular</mat-label>
+            <input matInput placeholder="NUMERO CELULAR"  formControlName="numCelular" (keypress)="keyPress($event)" maxlength="9">
+          </mat-form-field>
+        </div>
+        <div class="col-sm" align="start">
+          <mat-form-field appearance="outline" class="styelInput">
+            <mat-label>Operador</mat-label>
+            <mat-select disableRipple  formControlName="operado">
+              <mat-option value="Movistar">Movistar</mat-option>
+              <mat-option value="Claro">Claro</mat-option>
+              <mat-option value="Otros">Otros</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm" align="end">
+          <mat-form-field appearance="outline" class="styelInput">
+            <mat-label>Correo</mat-label>
+            <input matInput placeholder="CORREO"  formControlName="correo" maxlength="50">
+          </mat-form-field>
+        </div>
+        <div class="col-sm" align="start">
+          <mat-form-field appearance="outline" class="styelInput">
+            <mat-label>Dirección</mat-label>
+            <input matInput placeholder="INGRESE DIRECCION"  formControlName="direccion" maxlength="50">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm" align="end">
+          <mat-form-field appearance="outline" class="styelInput">
+            <mat-label>Número de contrato</mat-label>
+            <input matInput placeholder="NUMERO DE CONTRATO"  formControlName="numContrato" maxlength="10">
+          </mat-form-field>
+        </div>
+        <div class="col-sm" align="start">
+          <mat-form-field appearance="outline" class="styelInput" style="width: 87%;">
+            <mat-label>TDR</mat-label>
+            <ngx-mat-file-input [accept]="'.pdf'"   formControlName="docTDR" (change)="cargarpdf()">
+              <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+            </ngx-mat-file-input>
+          </mat-form-field>
+          <button mat-icon-button>
+            <mat-icon (click)="descargar(documentTdr)" matTooltip="Descargar Tdr" >get_app</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm" align="end">
+          <mat-form-field color="accent" appearance="outline" class="styelInput">
+            <mat-label>Inicio de Contrato</mat-label>
+            <input matInput [matDatepicker]="picker1" readonly="true" placeholder="DD/MM/AAAA"
+            formControlName="fechInicio">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-sm" align="start">
+          <mat-form-field color="accent" appearance="outline" class="styelInput">
+            <mat-label>Fin de Contrato</mat-label>
+            <input matInput [matDatepicker]="picker" readonly="true" placeholder="DD/MM/AAAA"
+            formControlName="fechFin">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker ></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm" align="end">
+          <mat-form-field appearance="outline" class="styelInput">
+            <mat-label>Asignar Área</mat-label>
+            <mat-select disableRipple  formControlName="area">
+              <mat-option *ngFor="let element of listComboAreas" [value]="element.id">{{element.area}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm" align="start">
+          <mat-form-field appearance="outline" class="styelInput">
+            <mat-label>Asignar Cargo</mat-label>
+            <mat-select disableRipple  formControlName="cargo">
+              <mat-option *ngFor="let element of listComboCargos" [value]="element.id">{{element.cargo}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+          <mat-form-field appearance="outline" class="styelInput">
+            <mat-label>Motivo de Actualización</mat-label>
+            <textarea matInput  formControlName="motivoAct" maxlength="50"></textarea>
+          </mat-form-field>
+      </div>
+  </form>
+  </mat-card>
+</div>
+<div mat-dialog-actions style="padding-bottom: 15px;; height: 12PX;" [align]="'center'">
+    <button mat-stroked-button   cdkFocusInitial color="accent" (click)=" openDialog()">GUARDAR</button>
+</div>
+<p-toast></p-toast>
+<ngx-spinner [zIndex]="9999" bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-clip-rotate-pulse" [fullScreen] = "true"><p style="color: white" > Cargando... </p></ngx-spinner>

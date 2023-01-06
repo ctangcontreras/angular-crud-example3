@@ -1,0 +1,73 @@
+<p-card align="center" color="#1d3572" class="dashboard-card">
+  <mat-card style="margin-top: -20px;">
+    <div align="center">
+   <b> Filtros de busqueda</b><hr>
+  </div>
+  <div class="row" [formGroup]="formGroupParent">
+    <div class="col-2">
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>DNI</mat-label>
+        <input matInput placeholder="" [formControlName]="'dni'" maxlength="8" (keypress)="keyPress($event)">
+      </mat-form-field>
+    </div>
+    <div class="col-4">
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Apellidos y Nombres</mat-label>
+        <input matInput placeholder="" [formControlName]="'apenom'" (keypress)="onlyLetras($event)">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="col" align="center">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <button mat-stroked-button color="accent" (click)="listaEmpleado()">BUSCAR</button>&nbsp;&nbsp;&nbsp;
+    <button mat-stroked-button color="accent" (click)="limpiar()">LIMPIAR</button>
+  </div>
+</mat-card><br>
+    <div class="mat-elevation-z7" *ngIf="dataSource.length > 0">
+        <table mat-table [dataSource]="dataSource" style="width: 100%;">
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="dni">
+            <th class="textAlign" mat-header-cell *matHeaderCellDef> DNI </th>
+            <td mat-cell *matCellDef="let element"> {{element.dni}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="empleado">
+            <th class="textAlign" mat-header-cell *matHeaderCellDef> Empleado </th>
+            <td mat-cell *matCellDef="let element"> {{element.empleado}} </td>
+          </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="nacimiento">
+            <th class="textAlign" mat-header-cell *matHeaderCellDef>Fecha Nacimiento </th>
+            <td mat-cell *matCellDef="let element"> {{element.fNacimiento | date: 'dd/MM/yyyy'}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="area">
+            <th class="textAlign" mat-header-cell *matHeaderCellDef> Area </th>
+            <td mat-cell *matCellDef="let element"> {{element.area}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cargo">
+            <th class="textAlign" mat-header-cell *matHeaderCellDef> Cargo </th>
+            <td mat-cell *matCellDef="let element"> {{element.cargo}} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="accion">
+            <th class="textAlign" mat-header-cell *matHeaderCellDef> Acción </th>
+            <td mat-cell *matCellDef="let element"> <button mat-icon-button>
+                <mat-icon (click)="clic(element)" matTooltip="Editar" (click)="openDialog('300ms', '150ms',element)">edit</mat-icon>
+              </button> <button mat-icon-button>
+                <mat-icon (click)="descargar(element)" matTooltip="Descargar Tdr">get_app</mat-icon>
+              </button> </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users" showFirstLastButtons>
+        </mat-paginator>
+    </div>
+</p-card>
+<p-toast></p-toast>

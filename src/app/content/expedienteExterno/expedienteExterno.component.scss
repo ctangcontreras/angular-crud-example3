@@ -1,0 +1,122 @@
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+//Estas líneas de CSS las usaremos para dar estilo a la cabecera:
+
+#main-header {
+	background: #333;
+	color: white;
+	height: 80px;
+}
+	#main-header a {
+		color: white;
+	}
+
+/*
+ * Logo
+ */
+#logo-header {
+	float: left;
+	padding: 15px 0 0 120px;
+	text-decoration: none;
+}
+	#logo-header:hover {
+		color: #0b76a6;
+	}
+
+	#logo-header .site-name {
+		display: block;
+		font-weight: 700;
+		font-size: 1.2em;
+	}
+
+	#logo-header .site-desc {
+		display: block;
+		font-weight: 300;
+		font-size: 0.8em;
+		color: #999;
+	}
+
+
+/*
+ * Navegación
+ */
+nav {
+	float: right;
+}
+	nav ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		padding-right: 120px;
+        padding-top: 10PX;
+	}
+
+		nav ul li {
+			display: inline-block;
+			line-height: 80px;
+		}
+
+			nav ul li a {
+				display: block;
+				padding: 0 10px;
+				text-decoration: none;
+			}
+
+
+//Con estos estilos aplicaremos diseño al contenido:
+
+#main-content {
+	background: white;
+	width: 90%;
+	max-width: 800px;
+	margin: 20px auto;
+	box-shadow: 0 0 10px rgba(0,0,0,.1);
+}
+
+	#main-content header,
+	#main-content .content {
+		padding: 40px;
+	}
+//Y por último, con esto estilizaremos el pie de página:
+
+#main-footer {
+	background: #333;
+	color: white;
+	text-align: center;
+	margin-top: 40px;
+    height: 165px;
+
+}
+
+	#main-footer a {
+		color: white;
+	}
+
+    #main-header {
+        background: #333;
+        color: white;
+        height: 100px;
+
+        width: 100%; /* hacemos que la cabecera ocupe el ancho completo de la página */
+        left: 0; /* Posicionamos la cabecera al lado izquierdo */
+        top: 0; /* Posicionamos la cabecera pegada arriba */
+        //position: fixed; /* Hacemos que la cabecera tenga una posición fija */
+    }
+
+    .dashboard-card {
+        top: 16%;
+        left: 500px !important;
+        right: 50px;
+        bottom: 50% !important;
+        min-height: fit-content;
+        padding-bottom: 5%;
+        border-radius: 50% !important;
+      }
+
+      *, *::before, *::after {
+        box-sizing: border-box;
+        overflow-x: clip;
+      }

@@ -1,0 +1,8 @@
+.tamAncho{
+  width: 100%;
+}
+
+/*quitar el ojo del edge type password*/
+::-ms-reveal{
+  display: none;
+}

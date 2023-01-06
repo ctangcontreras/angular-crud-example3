@@ -1,0 +1,58 @@
+<p-card align="center" color="#1d3572" header="REPORTE CAPACITACIÓN" class="dashboard-card">
+  <div class="mat-elevation-z7" *ngIf="ELEMENT_DATA.length > 0">
+      <table mat-table [dataSource]="ELEMENT_DATA" style="width: 100%;">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="nombre">
+          <th class="textAlign" mat-header-cell *matHeaderCellDef> Institución </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="tema">
+          <th class="textAlign" mat-header-cell *matHeaderCellDef> Tema </th>
+          <td mat-cell *matCellDef="let element"> {{element.tema}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="lugarSalida">
+          <th class="textAlign" mat-header-cell *matHeaderCellDef> Lugar Salida </th>
+          <td mat-cell *matCellDef="let element"> {{element.lugarSalida}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lugarDesino">
+          <th class="textAlign" mat-header-cell *matHeaderCellDef> Lugar Destino </th>
+          <td mat-cell *matCellDef="let element"> {{element.lugarDesino}} </td>
+        </ng-container>
+         <!-- Weight Column -->
+         <ng-container matColumnDef="fregistro">
+          <th class="textAlign" mat-header-cell *matHeaderCellDef> Fecha Registro </th>
+          <td mat-cell *matCellDef="let element"> {{element.fregistro | date: 'dd/MM/yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fsalida">
+          <th class="textAlign" mat-header-cell *matHeaderCellDef> Fecha Salida </th>
+          <td mat-cell *matCellDef="let element"> {{element.fsalida | date: 'dd/MM/yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fretorno">
+          <th class="textAlign" mat-header-cell *matHeaderCellDef> Fecha Retorno </th>
+          <td mat-cell *matCellDef="let element"> {{element.fretorno | date: 'dd/MM/yyyy'}} </td>
+        </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="Accion">
+          <th class="textAlign" mat-header-cell *matHeaderCellDef> Accion </th>
+          <td mat-cell *matCellDef="let element"> <!--button mat-icon-button>
+              <mat-icon (click)="clic(element)" matTooltip="Ver">visibility</mat-icon>
+            </button--> <button mat-icon-button>
+              <mat-icon (click)="descargarAnexo(element)" matTooltip="Descargar">get_app</mat-icon>
+            </button> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users" showFirstLastButtons>
+      </mat-paginator>
+  </div>
+</p-card>

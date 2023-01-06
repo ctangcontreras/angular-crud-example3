@@ -1,0 +1,78 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #snav #drawer class="sidenav" fixedInViewport color="accent"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false">
+
+    <mat-toolbar>
+      <img src="assets/logoEmpresa.jpeg" style="width: 50px; height: 55px;">
+      <label
+        style="color: rgb(0, 0, 0); font-family: 'Times New Roman', Georgia, Serif; font-weight: 800;font-style: italic">&nbsp;&nbsp;Cer&aacute;mica</label>
+    </mat-toolbar>
+    <mat-nav-list align="center">
+      <h1 style="color: rgb(0, 0, 0); font-family: 'Times New Roman', Georgia, Serif; font-weight: 800;">Menu</h1>
+    </mat-nav-list>
+    <!--menu y submenu-->
+    <mat-nav-list >
+      <a mat-list-item (click)="toggleMenu()">
+        <mat-icon mat-list-icon style="color: rgb(0, 0, 0);">assignment</mat-icon><b style="color: rgb(0, 0, 0);">Producción</b>
+        <mat-icon *ngIf="!showMenu" style="color: rgb(0, 0, 0);">chevron_right</mat-icon>
+        <mat-icon *ngIf="showMenu" style="color: rgb(0, 0, 0);">expand_more</mat-icon>
+      </a>
+      <mat-nav-list class="sidenav-submenu" *ngIf="showMenu" style="padding-left: 28px;">
+        <a mat-list-item style="color: rgb(0, 0, 0);" routerLink="./navs/seguimientoExpediente">Producto Inicial</a>
+        <a mat-list-item style="color: rgb(0, 0, 0);" routerLink="./navs/seguimientoExpediente">Quema de Producto</a>
+        <a mat-list-item style="color: rgb(0, 0, 0);" routerLink="./navs/seguimientoExpediente">Producto Terminado</a>
+        <a mat-list-item style="color: rgb(0, 0, 0);" routerLink="./navs/seguimientoExpediente">Ventas</a>
+
+      </mat-nav-list>
+    </mat-nav-list>
+
+    <mat-nav-list >
+      <a mat-list-item (click)="toggleMenu1()">
+        <mat-icon mat-list-icon style="color: rgb(0, 0, 0);">assignment</mat-icon><b style="color: rgb(0, 0, 0);">Reportes</b>
+        <mat-icon *ngIf="!showMenu1" style="color: rgb(0, 0, 0);">chevron_right</mat-icon>
+        <mat-icon *ngIf="showMenu1" style="color: rgb(0, 0, 0);">expand_more</mat-icon>
+      </a>
+      <mat-nav-list class="sidenav-submenu" *ngIf="showMenu1" style="padding-left: 28px;">
+        <a mat-list-item style="color: rgb(0, 0, 0);" routerLink="./navs/seguimientoExpediente">Reporte 1</a>
+        <a mat-list-item style="color: rgb(0, 0, 0);" routerLink="./navs/seguimientoExpediente">Reporte 2</a>
+      </mat-nav-list>
+    </mat-nav-list>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="snav.toggle()"
+        aria-label="alinearMenu icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>S.T.D</span>
+      <span class="alinearMenu-spacer"></span>
+      {{cargo}} DE {{area}}:
+      {{usuario}}
+      <!--button mat-icon-button [matMenuTriggerFor]="Notificacion">
+        <mat-icon  matBadge="2" matBadgeColor="primary" (click)="VerNotificacion()" [matBadgeHidden]="hidden">notification_important</mat-icon>
+      </!--button>
+      <mat-menu--  color="Primary" #Notificacion="matMenu" xPosition="before" >
+        <button mat-menu-item ><mat-icon>warning</mat-icon>El pago del mes esta atrasado</button>
+        <button mat-menu-item ><mat-icon>warning</mat-icon>El pago del mes</button>
+      </mat-menu-->
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <!--menu cerrar sesion-->
+      <button mat-icon-button  [matMenuTriggerFor]="Menu">
+        <img src="assets/Perfil.jpg" style="width: 40px; height: 40px; border-radius: 50%;">
+      </button>
+      <mat-menu  color="Primary" #Menu="matMenu" xPosition="before" >
+        <button mat-menu-item (click)="cerrarSesion()"><mat-icon>power_settings_new</mat-icon>Cerrar Sesion</button>
+      </mat-menu>
+      &nbsp;
+    </mat-toolbar>
+    <div id="footer">
+      <p style="color: rgb(0, 0, 0); text-align: center; font-style: italic; font-weight: bold;">&copy; Plataforma Virtual</p>
+    </div>
+    <div class="main">
+      <router-outlet></router-outlet>
+    </div>
+    <!-- Add Content Here -->
+  </mat-sidenav-content>
+</mat-sidenav-container>

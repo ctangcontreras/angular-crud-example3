@@ -1,0 +1,265 @@
+<header id="main-header">
+  <a id="logo-header">
+    <img src="assets/logoEmpresa.png" style="width: 70px; height: 75px; background: hsl(0deg 0% 100% / 80%); border-radius: 20px;">
+  </a>
+  <nav>
+    <ul>
+      <li><a style="font-size: 24px; font-weight: bold;">MUNICIPALIDAD DISTRITAL DE LLUMPA</a></li>
+    </ul>
+  </nav>
+</header>
+<mat-card
+  style="margin-top: 1%; margin-left: 4%;margin-right: 4%; border-radius: 20px; border-color: rgb(169, 170, 172);">
+  <mat-card-title align="center" style="font-weight: bold;">MESA DE PARTES VIRTUAL EXTERNA</mat-card-title><br>
+  <mat-card-header>
+    <mat-stepper linear #stepper style="width: 100%;">
+      <mat-step [editable]="isEditable"  [stepControl]="nitem" *ngFor="let nitem of formGroupParent.get('datosUsuario')['controls']; let nindex = index;">
+          <ng-container [formGroup]="nitem">
+          <ng-template matStepLabel>Datos del usuario</ng-template>
+          <br>
+          <div class="row">
+            <div class="col-sm" align="end">
+              <mat-form-field appearance="outline" style="width: 70%;">
+                <mat-label>Tipo Documento</mat-label>
+                <mat-select disableRipple [formControlName]="'tipoDocumento'" (selectionChange)="selectComboTipoDoc($event)">
+                  <mat-option value="RUC">RUC</mat-option>
+                  <mat-option value="DNI">DNI</mat-option>
+                  <mat-option value="Otros">Otros</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm" align="end">
+              <mat-form-field appearance="outline" style="width: 70%;"  *ngIf="ocultarInputCarnetExt">
+                <mat-label>DNI</mat-label>
+                <input matInput placeholder="Ingrese su DNI" [formControlName]="'dni'" (keydown.enter)="buscarPersona($event);" maxlength="8" (keypress)="keyPress($event)">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="width: 70%;" *ngIf="!ocultarInputCarnetExt">
+                <mat-label>Carnet Extrangeria</mat-label>
+                <input matInput placeholder="Ingrese Carnet Extrangeria" [formControlName]="'carnetExtrangeria'">
+              </mat-form-field>
+            </div>
+            <div class="col-sm" align="start">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm" align="end">
+              <mat-form-field appearance="outline" style="width: 70%;" *ngIf="!ocultarInputruc">
+                <mat-label>Razon Social</mat-label>
+                <input matInput placeholder="RAZON SOCIAL" [formControlName]="'razonSocial'" maxlength="100">
+              </mat-form-field>
+            </div>
+            <div class="col-sm" align="start">
+              <mat-form-field appearance="outline" style="width: 70%;" *ngIf="!ocultarInputruc">
+                <mat-label>RUC</mat-label>
+                <input matInput placeholder="Ingrese sus RUC" [formControlName]="'RUC'" maxlength="11" (keypress)="keyPress($event)">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm" align="end">
+              <mat-form-field appearance="outline" style="width: 70%;">
+                <mat-label>Apellidos</mat-label>
+                <input matInput placeholder="APELLIDOS" [formControlName]="'apellidos'" maxlength="100" (keypress)="onlyLetras($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-sm" align="start">
+              <mat-form-field appearance="outline" style="width: 70%;">
+                <mat-label>Nombres</mat-label>
+                <input matInput placeholder="NOMBRES" [formControlName]="'nombres'" maxlength="100" (keypress)="onlyLetras($event)">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm" align="end">
+              <mat-form-field appearance="outline" style="width: 70%;">
+                <mat-label>Dirección</mat-label>
+                <input matInput placeholder="INGRESE DIRECCIÓN" [formControlName]="'direccion'" maxlength="50">
+              </mat-form-field>
+            </div>
+            <div class="col-sm" align="start">
+              <mat-form-field appearance="outline" style="width: 70%;">
+                <mat-label>Correo</mat-label>
+                <input matInput placeholder="INGRESE CORREO" [formControlName]="'correo'" maxlength="50">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm" align="end">
+              <mat-form-field appearance="outline" style="width: 70%;">
+                <mat-label>Número de Celular</mat-label>
+                <input matInput placeholder="NÚMERO DE CELULAR" [formControlName]="'numCelular'" maxlength="9" (keypress)="keyPress($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-sm" align="start">
+              <mat-form-field appearance="outline" style="width: 70%;">
+                <mat-label>Operador</mat-label>
+                <mat-select disableRipple [formControlName]="'operador'">
+                  <mat-option value="Movistar">Movistar</mat-option>
+                  <mat-option value="Claro">Claro</mat-option>
+                  <mat-option value="Otros">Otros</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div align="center">
+            <button mat-stroked-button  color="accent" (click)="SiguienteVentana(stepper)">Siguiente</button>
+          </div>
+        </ng-container>
+      </mat-step>
+      <mat-step [editable]="isEditable"  [stepControl]="nitem" *ngFor="let nitem of formGroupParent.get('agregarAnexo')['controls']; let nindex = index;">
+        <ng-container [formGroup]="nitem">
+          <ng-template matStepLabel>Documentos</ng-template>
+          <br>
+          <div class="row">
+            <div class="col-sm" align="end">
+              <mat-form-field appearance="outline" style="width: 70%;">
+                <mat-label>Tipo Documento</mat-label>
+                <mat-select disableRipple [formControlName]="'tipoDoc'">
+                  <mat-option value="Carta">Carta</mat-option>
+                  <mat-option value="Oficio Simple">Oficio Simple</mat-option>
+                  <mat-option value="Oficio Multiple">Oficio Multiple</mat-option>
+                  <mat-option value="Solicitud">Solicitud</mat-option>
+                  <mat-option value="Memorial">Memorial</mat-option>
+                  <mat-option value="Notificación">Notificación</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm" align="start">
+              <mat-form-field appearance="outline" style="width: 70%;">
+                <mat-label>Número de documento</mat-label>
+                <input matInput placeholder="Ingrese documento" [formControlName]="'numDoc'" maxlength="50">
+              </mat-form-field>
+            </div>
+          </div>
+          <div align="center">
+            <mat-form-field appearance="outline" style="width: 71%;">
+              <mat-label>Asunto</mat-label>
+              <textarea matInput placeholder="Ingrese Asunto" [formControlName]="'asunto'" maxlength="50"></textarea>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <div class="col-sm" align="end">
+              <mat-form-field appearance="outline" style="width: 70%;">
+                <mat-label>Número de folios</mat-label>
+                <input matInput placeholder="Número de folios" [formControlName]="'numFolios'" maxlength="5" (keypress)="keyPress($event)">
+              </mat-form-field>
+            </div>
+            <div class="col-sm" align="start">
+              <mat-form-field appearance="outline" style="width: 70%;">
+                <mat-label>Documento(Formato PDF)</mat-label>
+                <ngx-mat-file-input [formControlName]="'docPdf'" (change)="cargarpdf(nitem.get('docPdf').value, 1)" [accept]="'.pdf'">
+                  <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+                </ngx-mat-file-input>
+             </mat-form-field>
+            </div>
+          </div>
+          <div>
+            <div class="row">
+              <ng-container>
+                <div class="col-sm" align="end">
+                  <mat-form-field appearance="outline" style="width: 70%;">
+                    <mat-label>Descrpicion anexo</mat-label>
+                    <input  matInput placeholder="Ingrese descripción" [formControlName]="'descripcionAnexo'" maxlength="50">
+                  </mat-form-field>
+                </div>
+                <div class="col-sm" align="start">
+                  <mat-form-field appearance="outline" style="width: 70%;">
+                    <mat-label>Anexo</mat-label>
+                    <ngx-mat-file-input [formControlName]="'anexo1'"  (change)="cargarpdf(nitem.get('anexo1').value, 2)"  [accept]="'.pdf'">
+                      <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+                    </ngx-mat-file-input>
+                 </mat-form-field>
+                  &nbsp;
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div align="center">
+            <button mat-stroked-button (click)="regresarRegistroPersona(stepper)" >Atras</button>&nbsp;
+            <button mat-stroked-button color="accent"  (click)="openDialog(stepper)">Confirmar</button>
+          </div>
+        </ng-container>
+      </mat-step>
+      <mat-step [editable]="isEditable" >
+        <ng-template matStepLabel>Confirmado ✓✓</ng-template>
+        <div align="center">
+          <img src="assets/confirm.jpg" style="width: 100px; height: 100px;">
+        </div><br>
+        <div>
+          <div class="row">
+            <div class="col-sm" align="end">
+              <b>N° Expediente: </b>
+            </div>
+            <div class="col-sm" align="start">
+              <mat-label>{{correlativo}}</mat-label>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-sm" align="end">
+              <b>Fecha: </b>
+            </div>
+            <div class="col-sm" align="start">
+              <mat-label>{{date | date:'dd/MM/yyyy'}}</mat-label>
+            </div>
+          </div><br>
+        </div>
+        <div align="center">
+          <p>Ingrese a este link para hacer el seguimiento</p>
+          <a href="{{urlRef}}">{{urlRef}}</a>
+        </div><br>
+        <div align="center">
+          <p>"Recuerde guardar el número de expediente y el link para hacer el seguimiento"</p>
+        </div><br>
+        <div align="center">
+          <!--button mat-stroked-button color="primary">Salir</!--button-->&nbsp;
+          <button mat-stroked-button color="accent" (click)="generarNuevo(stepper)">Generar Nuevo</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </mat-card-header>
+</mat-card>
+<br>
+<footer id="main-footer">
+  <div class="row">
+    <div class="col"><img src="assets/ubi.png" style="width: 70px; height: 75px;">
+      <div>
+        Dirección
+      </div>
+      <div>
+        <b>Plaza de Armas S/N - Llumpa</b>
+      </div>
+    </div>
+    <div class="col"><img src="assets/horario.png" style="width: 110px; height: 75px;">
+      <div>
+        Horario de Atención
+      </div>
+      <div>
+        <b> Lunes a Viernes 08:00 hrs. - 17:00 hrs.</b>
+      </div>
+    </div>
+    <div class="col"><img src="assets/cel.png" style="width: 100px; height: 75px;">
+      <div>
+        Central Telefónica
+      </div>
+      <div>
+        <b>931464295</b>
+      </div>
+    </div>
+    <div class="col"><img src="assets/soporte.png" style="width: 70px; height: 75px;">
+      <div>
+        Soporte Técnico
+      </div>
+      <div>
+        <b> www.munillumpa.gob.pe</b>
+      </div>
+    </div>
+  </div><br>
+  <p>&copy; {{date | date:'YYYY'}} &nbsp;<a>Municipalidad Distrital de Llumpa</a></p>
+</footer> <!-- / #main-footer -->
+<p-toast></p-toast>
